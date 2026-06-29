@@ -1,7 +1,18 @@
 {
-  "cycle": 0,
-  "positions": [],
-  "closed_today": 0,
-  "daily_pnl": 0,
-  "last_equity": 0
+  "status": "stopped",
+  "strategy": "London_Breakout_USDJPY",
+  "cycle_count": 1515,
+  "total_trades": 0,
+  "winning_trades": 0,
+  "losing_trades": 0,
+  "d1_direction": "unknown",
+  "d1_confirmed": false,
+  "session_status": "closed",
+  "next_trade_date": "2026-06-10",
+  "range_high": null,
+  "range_low": null,
+  "open_positions": [],
+  "last_cycle_time": "2026-06-10T04:53:31.813892+00:00",
+  "last_trade_time": null,
+  "start_time": "2026-06-09T23:00:09.554746+00:00"
 }

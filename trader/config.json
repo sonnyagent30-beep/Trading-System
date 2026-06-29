@@ -1,6 +1,15 @@
 {
-  "broker": "deriv",
-  "account_type": "synthetic",
-  "demo_mode": true,
-  "magic": 20250603
+  "bridge_url": "http://84.247.132.12:9090",
+  "magic": 20250603,
+  "cycle_seconds": 30,
+  "whatsapp_alerts": true,
+  "whatsapp_recipients": ["+1234567890"],
+  "whatsapp_enabled": true,
+  "log_level": "INFO",
+  "max_risk_per_trade": 0.02,
+  "default_stop_loss_pips": 20,
+  "default_take_profit_pips": 40,
+  "max_open_positions": 5,
+  "learn_from_trades": true,
+  "journal_path": "/root/workspace/forex/trader/journal.jsonl"
 }
