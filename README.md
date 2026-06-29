@@ -33,6 +33,7 @@ Copy `.env.example` to `.env` and add your API keys:
 cp .env.example .env
 ```
 
+
 Edit `config.yaml` to configure:
 - Risk management parameters
 - Trading pairs
@@ -53,7 +54,6 @@ python run_daily.py
 python backtest.py --strategy ema_cross --symbol EURUSD --from 2020-01-01
 ```
 
-
 ### Run Manager
 
 ```bash
@@ -61,7 +61,6 @@ python mt5_manager_loop.py
 ```
 
 ## Requirements
-
 
 - Python 3.8+
 - yfinance

@@ -1,4 +1,4 @@
-# Forward-Test Spec — Setup 1 x GBPUSD
+# Forward-Test Spec — Setup 1 × GBPUSD
 *Generated: 2026-06-06*
 
 ---
@@ -18,8 +18,8 @@
 - Size: 2% risk per trade
 
 ### Stop Loss / Take Profit
-- **SL**: 1.5 x ATR(14)
-- **TP**: 3.0 x ATR(14)
+- **SL**: 1.5 × ATR(14)
+- **TP**: 3.0 × ATR(14)
 - **Trailing**: close at breakeven when profit = 1:1 risk
 
 ### Filters / Gate
@@ -48,8 +48,8 @@
 | Pair | GBPUSD |
 | Direction | BUY only (D1 bull confirmed) |
 | Risk | 2% per trade |
-| SL | 1.5 x ATR(14) |
-| TP | 3.0 x ATR(14) |
+| SL | 1.5 × ATR(14) |
+| TP | 3.0 × ATR(14) |
 | Trailing | Close at BE when profit = 1:1 risk |
 | Magic Number | 20250603 |
 | Bridge Port | 9090 |
@@ -60,7 +60,7 @@
 
 ## Bridge Communication Protocol
 
-### Architect -> Bridge (POST /queue)
+### Architect → Bridge (POST /queue)
 ```json
 {
   "action": "buy",
@@ -77,12 +77,20 @@
 }
 ```
 
-### Trader -> Bridge (GET /signals)
+
+### Trader → Bridge (GET /signals)
 Polls every 30 seconds. Gets pending signals, executes if gate passed.
 
-### Bridge -> MT5 EA (GET /next)
+### Bridge → MT5 EA (GET /next)
 EA reads pending commands and executes on MT5.
 
-### EA -> Bridge (POST /result)
+### EA → Bridge (POST /result)
 Posts trade ticket, open/close prices, PnL after fill.
 
+
+---
+
+## Forward-Test Start
+- Trader loop already running on VPS
+- Architect monitors D1 GBPUSD and posts signals when Setup 1 fires
+- Trader evaluates and executes if all gates pass

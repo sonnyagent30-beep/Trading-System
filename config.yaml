@@ -43,7 +43,6 @@ confirmation_timeframes:
   - "H1"
   - "D1"
 
-
 # --- EA Output ---
 ea:
   language: "MQL5"

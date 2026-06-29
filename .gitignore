@@ -1,0 +1,23 @@
+# Environment and secrets
+.env
+.env.local
+.env.production
+*.pem
+*.key
+
+# Python
+__pycache__/
+*.py[cod]
+*.log
+logs/*.log
+
+# Backtest results
+backtests/
+results_daily.json
+portfolio.jsonl
+
+# Graphify output
+graphify-out/
+
+# OS
+.DS_Store
