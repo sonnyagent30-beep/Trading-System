@@ -1,0 +1,56 @@
+# =============================================
+# Hermes Forex Trading Suite — Config
+# =============================================
+
+# --- Risk Management ---
+risk:
+  default_risk_percent: 1.5         # 1–3% per trade
+  max_risk_percent: 3.0             # Hard cap
+  probability_scaling: true          # Scale size by setup confidence
+  max_daily_loss_percent: 5.0       # Daily drawdown circuit breaker
+
+# --- Broker / API ---
+broker: "deriv"
+account_type: "synthetic"           # synthetic indices / forex
+demo_mode: true                     # DRY-RUN = true | LIVE = false
+app_id: ""                           # Set via env or secrets; not committed
+api_key_env: "DERIV_API_TOKEN"
+
+# --- Pairs & Assets ---
+assets:
+  fx_pairs:
+    - "frxEURUSD"
+    - "frxGBPUSD"
+    - "frxUSDJPY"
+    - "frxAUDUSD"
+    - "frxUSDCAD"
+    - "frxNZDUSD"
+    - "frxEURGBP"
+    - "frxEURJPY"
+    - "frxGBPJPY"
+    - "frxUSDCHF"
+  metals:
+    - "frxXAUUSD"
+  synthetic_indices:
+    - "R_10"      # Volatility 10
+    - "R_25"      # Volatility 25
+    - "R_50"      # Volatility 50
+    - "Synthetics" # Step Index
+
+# --- Timeframes ---
+primary_timeframe: "H4"
+confirmation_timeframes:
+  - "H1"
+  - "D1"
+
+
+# --- EA Output ---
+ea:
+  language: "MQL5"
+  output_dir: "/root/workspace/forex/ea"
+  compile_after_generate: false      # Set up metaeditor path first
+  magic_number_base: 20250600        # Prefix for per-EA magic numbers
+
+# --- Logging ---
+logs_dir: "/root/workspace/forex/logs"
+retain_daily_briefs_days: 90
