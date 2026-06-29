@@ -1,0 +1,6 @@
+{
+  "broker": "deriv",
+  "account_type": "synthetic",
+  "demo_mode": true,
+  "magic": 20250603
+}
