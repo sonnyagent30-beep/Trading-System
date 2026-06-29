@@ -1,0 +1,15 @@
+{
+  "strategy": "grid_xau",
+  "period": "2026-06-14 to 2026-06-23",
+  "total_sessions": 10,
+  "profitable_sessions": 8,
+  "losing_sessions": 2,
+  "win_rate": 0.80,
+  "total_pnl": 73.90,
+  "avg_pnl_per_session": 7.39,
+  "max_drawdown": -16.10,
+  "best_session": 22.10,
+  "worst_session": -8.20,
+  "total_trades": 58,
+  "avg_trades_per_session": 5.8
+}

@@ -1,0 +1,15 @@
+{
+  "strategy": "grid_asian",
+  "period": "2026-06-14 to 2026-06-23",
+  "total_sessions": 10,
+  "profitable_sessions": 7,
+  "losing_sessions": 3,
+  "win_rate": 0.70,
+  "total_pnl": 23.70,
+  "avg_pnl_per_session": 2.37,
+  "max_drawdown": -8.40,
+  "best_session": 8.40,
+  "worst_session": -4.20,
+  "total_trades": 98,
+  "avg_trades_per_session": 9.8
+}
