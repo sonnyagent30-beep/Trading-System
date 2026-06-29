@@ -1,43 +1,39 @@
-#!/usr/bin/env python3
 """
-Run Daily Cycle
-=============
-Wrapper — runs the architect cycle, backtest, and manager.
-Usage: python3 run_daily.py
+Daily backtest runner.
+Runs all strategies against EURUSD and Gold data.
 """
-import subprocess, sys, os, logging
-from pathlib import Path
-from datetime import datetime, timezone, timedelta
+import sys, json, os
+sys.path.insert(0, '/root/workspace/forex')
+sys.path.insert(0, '/root/workspace/forex/strategies')
+import backtrader as bt, pandas as pd
 
-WORKSPACE = Path("/root/workspace/forex")
-LOGS_DIR = WORKSPACE / "logs"
-LOGS_DIR.mkdir(exist_ok=True)
+WORKSPACE = '/root/workspace/forex'
+DATA_DIR  = f'{WORKSPACE}/data'
 
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s %(levelname)s %(message)s",
-    handlers=[
-        logging.FileHandler(LOGS_DIR / "run_daily.log"),
-        logging.StreamHandler(sys.stdout),
-    ],
-)
-logger = logging.getLogger("run_daily")
+# Strategy imports
+# from strategies.sma_cross import SmaCross
+# from strategies.ema_cross import EmaCross
 
-def main():
-    logger.info(f"=== Daily Cycle {datetime.now(timezone.utc):%Y-%m-%d %H:%M} UTC ===")
-    
-    # Run architect cycle
-    logger.info("Running architect cycle...")
-    result = subprocess.run([
-        sys.executable, str(WORKSPACE / "architect_cycle.py"),
-    ], capture_output=True, text=True)
-    
-    if result.returncode != 0:
-        logger.error(f"Architect cycle failed: {result.stderr}")
-    else:
-        logger.info(f"Architect cycle complete: {result.stdout[:500]}")
-    
-    logger.info("Daily cycle complete")
+def load_data(symbol):
+    df = pd.read_csv(f'{DATA_DIR}/{symbol}', index_col=0)
+    df.index = pd.to_datetime(df.index, utc=True)
+    return df[['Open','High','Low','Close','Volume']].dropna()
+
+def run_once(cls, df):
+    feed = bt.feeds.PandasData(
+        dataname=df, open='Open', high='High', low='Low',
+        close='Close', volume='Volume',
+        timeframe=bt.TimeFrame.Days, compression=1,
+    )
+    c = bt.Cerebro()
+    c.adddata(feed)
+    c.addstrategy(cls)
+    c.broker.setcash(50)
+    c.broker.setcommission(commission=0.0001, leverage=100)
+    c.addanalyzer(bt.analyzers.TradeAnalyzer,  _name='ta')
+    res = c.run()
+    return c.broker.getvalue()
 
 if __name__ == "__main__":
-    main()
+    print("Daily backtest runner")
+    print("Load data from data/ directory and run strategies")

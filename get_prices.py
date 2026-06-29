@@ -1,28 +1,29 @@
-#!/usr/bin/env python3
-"""
-Get Prices
-=========
-Gets current prices from yfinance.
-Usage: python3 get_prices.py
-"""
 import yfinance as yf
-from pathlib import Path
+import json
 
-PAIRS = {
-    "EURUSD": "EURUSD=X",
-    "GBPUSD": "GBPUSD=X",
-    "USDJPY": "USDJPY=X",
-    "AUDUSD": "AUDUSD=X",
-    "XAUUSD": "GC=F",
-}
+pairs = ['EURUSD=X', 'GBPUSD=X', 'USDJPY=X', 'AUDUSD=X', 'GC=F']
+results = {}
 
+for p in pairs:
+    try:
+        t = yf.Ticker(p)
+        hist = t.history(period='2d')
+        if not hist.empty and len(hist) >= 2:
+            curr = float(hist['Close'].iloc[-1])
+            prev = float(hist['Close'].iloc[-2])
+            chg = round((curr - prev) / prev * 100, 3)
+            hi = float(hist['High'].iloc[-1])
+            lo = float(hist['Low'].iloc[-1])
+            results[p] = {
+                'price': round(curr, 5),
+                'change_pct': chg,
+                'high': round(hi, 5),
+                'low': round(lo, 5),
+                'prev_close': round(prev, 5)
+            }
+        else:
+            results[p] = {'error': 'insufficient data'}
+    except Exception as e:
+        results[p] = {'error': str(e)}
 
-def main():
-    for name, ticker in PAIRS.items():
-        t = yf.Ticker(ticker)
-        price = t.history(period="1d")
-        if len(price) > 0:
-            print(f"{name}: {price['Close'].iloc[-1]:.5f}")
-
-if __name__ == "__main__":
-    main()
+print(json.dumps(results, indent=2))
